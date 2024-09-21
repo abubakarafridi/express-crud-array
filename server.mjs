@@ -20,6 +20,18 @@ app.post("/api/users", (req, res) => {
     res.status(201).json({message: "Post Request - created a user", newUser})
 })
 
+app.delete("/api/users/:id", (req, res) => {
+    const userId = parseInt(req.params.id);
+    const userIndex = users.findIndex(user => user.id === userId)
+    console.log(userId, userIndex);
+    if (userIndex !== -1) {
+        users.splice(userIndex, 1);
+        res.status(200).json({message: `Delete Request - The user with user id ${userId} is deleted`})
+    } else {
+        res.status(404).json({message: `The user with user id ${userId} is not found`})
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`server is listening on http://localhost:3000`);
 })
