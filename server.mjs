@@ -9,10 +9,12 @@ const users = [
   { id: 2, name: 'ahmad', email: 'ahmad@gmail.com' },
 ];
 
+// GET USERS
 app.get('/api/users', (req, res) => {
   res.status(200).json({ message: 'Get Request - get all user', users });
 });
 
+// CREATE USER
 app.post('/api/users', (req, res) => {
   const userId = users.length + 1;
   const newUser = { userId, ...req.body };
@@ -20,6 +22,7 @@ app.post('/api/users', (req, res) => {
   res.status(201).json({ message: 'Post Request - created a user', newUser });
 });
 
+// UPDATED USER
 app.put('/api/users/:id', (req, res) => {
   const userId = parseInt(req.params.id);
   const userIndex = users.findIndex((user) => user.id === userId);
@@ -39,6 +42,7 @@ app.put('/api/users/:id', (req, res) => {
   }
 });
 
+// DELETE USER
 app.delete('/api/users/:id', (req, res) => {
   const userId = parseInt(req.params.id);
   const userIndex = users.findIndex((user) => user.id === userId);
