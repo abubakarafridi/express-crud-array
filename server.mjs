@@ -20,10 +20,21 @@ app.post("/api/users", (req, res) => {
     res.status(201).json({message: "Post Request - created a user", newUser})
 })
 
+app.put("/api/users/:id", (req, res) => {
+    const userId = parseInt(req.params.id);
+    const userIndex = users.findIndex(user => user.id === userId)
+    if (userIndex !== -1) {
+        const updatedUser = {...users[userIndex], ...req.body};
+        users[userIndex] = updatedUser
+        res.status(200).json({message: `Update Request - The user with user id ${userId} is updated`, body : updatedUser})
+    } else {
+        res.status(404).json({message: `The user with user id ${userId} is not found`})
+    }
+})
+
 app.delete("/api/users/:id", (req, res) => {
     const userId = parseInt(req.params.id);
     const userIndex = users.findIndex(user => user.id === userId)
-    console.log(userId, userIndex);
     if (userIndex !== -1) {
         users.splice(userIndex, 1);
         res.status(200).json({message: `Delete Request - The user with user id ${userId} is deleted`})
