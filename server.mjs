@@ -25,7 +25,7 @@ app.post('/api/users', (req, res) => {
 // UPDATED USER
 app.put('/api/users/:id', (req, res) => {
   const userId = parseInt(req.params.id);
-  const userIndex = users.findIndex((user) => user.id === userId);
+  const userIndex = users.filter((user) => user.id === userId);
   if (userIndex !== -1) {
     const updatedUser = { ...users[userIndex], ...req.body };
     users[userIndex] = updatedUser;
@@ -45,7 +45,7 @@ app.put('/api/users/:id', (req, res) => {
 // DELETE USER
 app.delete('/api/users/:id', (req, res) => {
   const userId = parseInt(req.params.id);
-  const userIndex = users.findIndex((user) => user.id === userId);
+  const userIndex = users.filter((user) => user.id === userId);
   if (userIndex !== -1) {
     users.splice(userIndex, 1);
     res
